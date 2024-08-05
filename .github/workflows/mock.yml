@@ -14,6 +14,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            console.log('#### Call Main Workflow ####');
             const token = process.env.GITHUB_TOKEN;
             const name = 'seu-nome-aqui'; // Substitua pelo nome desejado
 
@@ -35,6 +36,6 @@ jobs:
   migrate:
     uses: ./.github/workflows/main.yml
     with:
-      token: ${{ secrets.GITHUB_TOKEN }}
+      token: 'secrets.GITHUB_TOKEN'
       name: 'Nome qualquer'
     secrets: inherit

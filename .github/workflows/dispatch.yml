@@ -1,0 +1,34 @@
+name: "Dispatch Update Repo"
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo_name:
+        description: 'Nome do repositório'
+        required: true
+      owner:
+        description: 'Proprietário do repositório'
+        required: true
+
+jobs:
+  consulta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Consultar Repositório
+        id: consulta
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const octokit = require('@octokit/rest')();
+            const token = process.env.GITHUB_TOKEN;
+            const owner = context.payload.inputs.owner;
+            const repoName = context.payload.inputs.repo_name;
+
+            const repoInfo = await octokit.repos.get({
+              owner,
+              repo: repoName,
+            });
+
+            console.log(repoInfo.data);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
