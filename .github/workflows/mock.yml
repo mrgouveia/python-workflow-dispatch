@@ -1,0 +1,40 @@
+name: Main Workflow
+on:
+  push:
+    branches: [main]
+
+jobs:
+  call-main-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Call Main Workflow
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const token = process.env.GITHUB_TOKEN;
+            const name = 'seu-nome-aqui'; // Substitua pelo nome desejado
+
+            const response = await octokit.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'main.yml',
+              ref: 'main',
+              inputs: {
+                token,
+                name,
+              },
+            });
+
+            console.log(response);
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  migrate:
+    uses: ./.github/workflows/main.yml
+    with:
+      token: ${{ secrets.GITHUB_TOKEN }}
+      name: 'Nome qualquer'
+    secrets: inherit

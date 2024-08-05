@@ -1,0 +1,23 @@
+name: Outro Fluxo de Trabalho
+
+on:
+  workflow_call:
+    inputs:
+      token:
+        description: 'Token de autenticação'
+        type: string
+        required: true
+      name:
+        description: 'Nome'
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Adicione outras etapas relevantes para o seu fluxo de trabalho secundário
+      # Por exemplo, construir, testar, implantar, etc.
