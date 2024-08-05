@@ -9,5 +9,5 @@ with open(csv_file_path, 'r') as csvfile:
     reader = csv.reader(csvfile)    
     for row in reader:
         print(', '.join(row))  # Print each row as a comma-separated string
-        result += resultS
+        result += row
     print(f"::set-output name=my_output::{result}")
