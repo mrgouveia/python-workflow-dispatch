@@ -4,36 +4,22 @@ on:
     branches: [main]
 
 jobs:
-  call-main-workflow:
+  run-python:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Call Main Workflow
-        uses: actions/github-script@v5
-        with:
-          script: |
-            console.log('#### Call Main Workflow ####');
-            const token = process.env.GITHUB_TOKEN;
-            const name = 'seu-nome-aqui'; // Substitua pelo nome desejado
+      - name: Execute Python Script
+        id: python-script
+        run: |
+          python scripts/script.py
 
-            const response = await octokit.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'main.yml',
-              ref: 'main',
-              inputs: {
-                token,
-                name,
-              },
-            });
+      - name: Use Python Script Output
+        run: |
+          echo "The Python script output was: ${{ steps.python-script.outputs.my_output }}"
 
-            console.log(response);
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  migrate:
+  call-main-workflow:
     uses: ./.github/workflows/main.yml
     with:
       token: 'secrets.GITHUB_TOKEN'
