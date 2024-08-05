@@ -1,7 +1,7 @@
 import csv
 
 # Path to the CSV file
-csv_file_path = 'data/data.csv'
+csv_file_path = 'data/strings.csv'
 
 # Read and print the contents of the CSV file
 with open(csv_file_path, 'r') as csvfile:
