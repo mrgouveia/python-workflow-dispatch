@@ -1,4 +1,5 @@
 name: "Dispatch Update Repo"
+run-name: "This repo ${{ github.event.inputs.repo_name }} is owned by ${{ github.event.inputs.owner }}"
 
 on:
   workflow_dispatch:
@@ -22,4 +23,4 @@ jobs:
           echo Dispatch Update Repo
           echo " ${{ inputs.repo_name }} "
           echo " ${{ inputs.owner }} "
-          
+
