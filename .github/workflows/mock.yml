@@ -1,4 +1,4 @@
-name: Main Workflow
+name: Mock Workflow
 on:
   push:
     branches: [main]
