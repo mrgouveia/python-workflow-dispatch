@@ -28,5 +28,17 @@ def trigger_workflow():
     else:
         print(f"Error triggering workflow: {response.status_code} - {response.text}")
 
+def get_github_repo_id():
+    username = "mrgouveia"
+    repo_name = "python-workflow-dispatch"
+
+    url = f"https://api.github.com/repos/{username}/{repo_name}"
+    response = requests.get(url)
+    repo_data = response.json()
+
+    repo_id = repo_data["id"]
+    print(f"Repository ID for {username}/{repo_name}: {repo_id}")
+
 if __name__ == '__main__':
     trigger_workflow()
+    get_github_repo_id()
